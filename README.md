@@ -121,5 +121,12 @@ Orders are summed directly to avoid repeating an order's total for every order-d
 
 ## 7. Denormalization: Customer and Order
 
-<!-- Pending: add the solution after this task is discussed and completed. -->
+We can apply denormalization in two ways:
+
+- Add `orders_total_amount` to `Customer` to store the total value of each customer's orders. Recalculate it daily, since the business accepts delayed updates.
+- Add `customer_name` to `Orders` to store the customer's name at the time of purchase. Keep it unchanged if the customer later changes their name.
+
+**Benefits:** Faster reads, fewer joins, and less repeated calculation.
+
+**Trade-offs:** Extra storage and daily updates to keep customer totals accurate.
 
