@@ -58,7 +58,7 @@ In the current scripts, foreign key columns are nullable, so a child row can hav
 
 ## 3. ERD Diagram
 
-<!-- Add the ERD diagram here after it is completed. -->
+![E-commerce ERD](ecommerce_erd.png)
 
 ## PostgreSQL Reporting Queries
 
