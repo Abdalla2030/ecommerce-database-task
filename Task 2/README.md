@@ -40,3 +40,24 @@ WHERE rec.category_id IN (
         WHERE o.customer_id = 10
       );
 ```
+
+### Solution 2 - Schema Update
+
+The original schema (Task 1) has no `vendor`/`author` column in the `Product` table. To support the "same author/vendor" condition, a `Vendor` table and a `vendor_id` foreign key were added to `Product` (see the ALTER script above).
+
+-- Add vendor_id column to Product
+'''
+ALTER TABLE Product
+ADD COLUMN vendor_id INT;
+'''
+
+```sql
+SELECT rec.*
+FROM Product rec
+JOIN Product purchased
+  ON purchased.category_id = rec.category_id
+ AND purchased.vendor_id   = rec.vendor_id
+JOIN Order_details od ON od.product_id = purchased.product_id
+JOIN Orders o         ON o.order_id = od.order_id
+WHERE o.customer_id = 10
+  AND rec.product_id <> purchased.product_id;
